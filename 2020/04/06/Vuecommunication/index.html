@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>Vue中8种组件通信方式 | willpower</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="vue" />
+    
+    <meta name="description" content="一、props &#x2F; $emit父组件通过props的方式向子组件传递数据，而通过$emit 子组件可以向父组件通信。 1. 父组件向子组件传值下面通过一个例子说明父组件如何向子组件传递数据：在子组件article.vue中如何获取父组件section.vue中的数据articles:[‘手机’, ‘平板’,’电脑’] 123456789101112131415161718&#x2F;&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue中8种组件通信方式">
+<meta property="og:url" content="http://yoursite.com/2020/04/06/Vuecommunication/index.html">
+<meta property="og:site_name" content="willpower">
+<meta property="og:description" content="一、props &#x2F; $emit父组件通过props的方式向子组件传递数据，而通过$emit 子组件可以向父组件通信。 1. 父组件向子组件传值下面通过一个例子说明父组件如何向子组件传递数据：在子组件article.vue中如何获取父组件section.vue中的数据articles:[‘手机’, ‘平板’,’电脑’] 123456789101112131415161718&#x2F;&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=184682414,3604033510&fm=26&gp=0.jpg">
+<meta property="article:published_time" content="2020-04-06T03:16:12.000Z">
+<meta property="article:modified_time" content="2020-07-20T07:43:10.930Z">
+<meta property="article:author" content="Tian">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=184682414,3604033510&fm=26&gp=0.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="willpower" type="application/atom+xml" />
+    
+
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">有规划的生活学习，努力，坚持</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/js/">js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/vue/">vue</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E6%A0%B7%E5%BC%8F%E7%BB%93%E6%9E%84%E5%92%8C%E5%B8%83%E5%B1%80/">样式结构和布局</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/vue/">vue</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="[layout]-Vuecommunication" class="article article-single article-type-[layout]" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Vue中8种组件通信方式
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/2020/04/06/Vuecommunication/" class="article-date">
+         <time datetime="2020-04-06T03:16:12.000Z" itemprop="datePublished">2020-04-06</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/vue/" rel="tag">vue</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <hr>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=184682414,3604033510&fm=26&gp=0.jpg" alt="Tian"></h2><h2 id="一、props-emit"><a href="#一、props-emit" class="headerlink" title="一、props / $emit"></a>一、props / $emit</h2><p>父组件通过props的方式向子组件传递数据，而通过$emit 子组件可以向父组件通信。</p>
+<h3 id="1-父组件向子组件传值"><a href="#1-父组件向子组件传值" class="headerlink" title="1. 父组件向子组件传值"></a>1. 父组件向子组件传值</h3><p>下面通过一个例子说明父组件如何向子组件传递数据：在子组件article.vue中如何获取父组件section.vue中的数据articles:[‘手机’, ‘平板’,’电脑’]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; section父组件  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">&lt;div class&#x3D;&quot;section&quot;&gt;  </span><br><span class="line">    &lt;com-article :articles&#x3D;&quot;articleList&quot;&gt;&lt;&#x2F;com-article&gt;  </span><br><span class="line">&lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">import comArticle from &#39;.&#x2F;test&#x2F;article.vue&#39;  </span><br><span class="line">export default &#123;  </span><br><span class="line">name: &#39;HelloWorld&#39;,  </span><br><span class="line">components: &#123; comArticle &#125;,  </span><br><span class="line">data() &#123;  </span><br><span class="line">    return &#123;  </span><br><span class="line">      articleList: [&#39;手机&#39;, &#39;电脑&#39;, &#39;平板&#39;]  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 子组件 article.vue  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">&lt;div&gt;  </span><br><span class="line">    &lt;span v-for&#x3D;&quot;item in articles&quot; :key&#x3D;&quot;item&quot;&gt;&#123;&#123;item&#125;&#125;&lt;&#x2F;span&gt;  </span><br><span class="line">&lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  props: [&#39;articles&#39;]  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-子组件向父组件传值"><a href="#2-子组件向父组件传值" class="headerlink" title="2. 子组件向父组件传值"></a>2. 子组件向父组件传值</h3><p>$emit绑定一个自定义事件, 当这个语句被执行时, 就会将参数arg传递给父组件,父组件通过v-on监听并接收参数。<br>在上个例子的基础上, 点击页面渲染出来的ariticle的item, 父组件中显示该item在数组中的索引值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 父组件中  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div class&#x3D;&quot;section&quot;&gt;  </span><br><span class="line">    &lt;com-article :articles&#x3D;&quot;articleList&quot; @onEmitIndex&#x3D;&quot;onEmitIndex&quot;&gt;&lt;&#x2F;com-article&gt;  </span><br><span class="line">    &lt;p&gt;&#123;&#123;currentIndex&#125;&#125;&lt;&#x2F;p&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">import comArticle from &#39;.&#x2F;test&#x2F;article.vue&#39;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  name: &#39;HelloWorld&#39;,  </span><br><span class="line">  components: &#123; comArticle &#125;,  </span><br><span class="line">  data() &#123;  </span><br><span class="line">    return &#123;  </span><br><span class="line">      currentIndex: -1,  </span><br><span class="line">      articleList: [&#39;手机&#39;, &#39;电脑&#39;, &#39;平板&#39;]  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;,  </span><br><span class="line">  methods: &#123;  </span><br><span class="line">    onEmitIndex(idx) &#123;  </span><br><span class="line">      this.currentIndex &#x3D; idx  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &lt;div v-for&#x3D;&quot;(item, index) in articles&quot; :key&#x3D;&quot;index&quot; @click&#x3D;&quot;emitIndex(index)&quot;&gt;&#123;&#123;item&#125;&#125;&lt;&#x2F;div&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  props: [&#39;articles&#39;],  </span><br><span class="line">  methods: &#123;  </span><br><span class="line">    emitIndex(index) &#123;  </span><br><span class="line">      this.$emit(&#39;onEmitIndex&#39;, index)  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="二、-children-parent"><a href="#二、-children-parent" class="headerlink" title="二、 $children / $parent"></a>二、 $children / $parent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 父组件中  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">&lt;div class&#x3D;&quot;hello_world&quot;&gt;  </span><br><span class="line">    &lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;&#x2F;div&gt;  </span><br><span class="line">    &lt;com-a&gt;&lt;&#x2F;com-a&gt;  </span><br><span class="line">    &lt;button @click&#x3D;&quot;changeA&quot;&gt;点击改变子组件值&lt;&#x2F;button&gt;  </span><br><span class="line">&lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">import ComA from &#39;.&#x2F;test&#x2F;comA.vue&#39;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  name: &#39;HelloWorld&#39;,  </span><br><span class="line">  components: &#123; ComA &#125;,  </span><br><span class="line">  data() &#123;  </span><br><span class="line">    return &#123;  </span><br><span class="line">      msg: &#39;Welcome&#39;  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;,  </span><br><span class="line">  methods: &#123;  </span><br><span class="line">    changeA() &#123;  </span><br><span class="line">      &#x2F;&#x2F; 获取到子组件A  </span><br><span class="line">      this.$children[0].messageA &#x3D; &#39;this is new value&#39;  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 子组件中  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div class&#x3D;&quot;com_a&quot;&gt;  </span><br><span class="line">    &lt;span&gt;&#123;&#123;messageA&#125;&#125;&lt;&#x2F;span&gt;  </span><br><span class="line">    &lt;p&gt;获取父组件的值为:  &#123;&#123;parentVal&#125;&#125;&lt;&#x2F;p&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  data() &#123;  </span><br><span class="line">    return &#123;  </span><br><span class="line">      messageA: &#39;this is old&#39;  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;,  </span><br><span class="line">  computed:&#123;  </span><br><span class="line">    parentVal()&#123;  </span><br><span class="line">      return this.$parent.msg;  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：如在#app上拿$parent得到的是new Vue()的实例，在这实例上再拿$parent得到的是undefined，而在最底层的子组件拿$children是个空数组。也要注意得到$parent和$children的值不一样，$children 的值是数组，而$parent是个对象。</p>
+<p>上面两种方式用于父子组件之间的通信， 而使用props进行父子组件通信更加普遍; 二者皆不能用于非父子组件之间的通信。</p>
+<h2 id="三、provide-inject"><a href="#三、provide-inject" class="headerlink" title="三、provide/ inject"></a>三、provide/ inject</h2><p>provide/ inject 是vue2.2.0新增的api, 简单来说就是父组件中通过provide来提供变量, 然后再子组件中通过inject来注入变量。</p>
+<p>注意: 这里不论子组件嵌套有多深, 只要调用了inject 那么就可以注入provide中的数据，而不局限于只能从当前父组件的props属性中回去数据</p>
+<p>举例验证</p>
+<p>接下来就用一个例子来验证上面的描述:</p>
+<p>假设有三个组件: A.vue、B.vue、C.vue 其中 C是B的子组件，B是A的子组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; A.vue  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &lt;comB&gt;&lt;&#x2F;comB&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">  import comB from &#39;..&#x2F;components&#x2F;test&#x2F;comB.vue&#39;  </span><br><span class="line">  export default &#123;  </span><br><span class="line">    name: &quot;A&quot;,  </span><br><span class="line">    provide: &#123;  </span><br><span class="line">      for: &quot;demo&quot;  </span><br><span class="line">    &#125;,  </span><br><span class="line">    components:&#123;  </span><br><span class="line">      comB  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; B.vue  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &#123;&#123;demo&#125;&#125;  </span><br><span class="line">    &lt;comC&gt;&lt;&#x2F;comC&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">  import comC from &#39;..&#x2F;components&#x2F;test&#x2F;comC.vue&#39;  </span><br><span class="line">  export default &#123;  </span><br><span class="line">    name: &quot;B&quot;,  </span><br><span class="line">    inject: [&#39;for&#39;],  </span><br><span class="line">    data() &#123;  </span><br><span class="line">      return &#123;  </span><br><span class="line">        demo: this.for  </span><br><span class="line">      &#125;  </span><br><span class="line">    &#125;,  </span><br><span class="line">    components: &#123;  </span><br><span class="line">      comC  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; C.vue  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &#123;&#123;demo&#125;&#125; </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">  export default &#123;  </span><br><span class="line">    name: &quot;C&quot;,  </span><br><span class="line">    inject: [&#39;for&#39;],  </span><br><span class="line">    data() &#123;  </span><br><span class="line">      return &#123;  </span><br><span class="line">        demo: this.for  </span><br><span class="line">      &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、ref-refs"><a href="#四、ref-refs" class="headerlink" title="四、ref / refs"></a>四、ref / refs</h2><p>ref：如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例，可以通过实例直接调用组件的方法或访问数据， 我们看一个ref 来访问组件的例子:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 子组件 A.vue  </span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;  </span><br><span class="line">  data () &#123;  </span><br><span class="line">    <span class="keyword">return</span> &#123;  </span><br><span class="line">      name: <span class="string">'Vue.js'</span>  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;,  </span><br><span class="line">  methods: &#123;  </span><br><span class="line">    sayHello () &#123;  </span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'hello'</span>)  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 父组件 app.vue  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;component-a ref&#x3D;&quot;comA&quot;&gt;&lt;&#x2F;component-a&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">  export default &#123;  </span><br><span class="line">    mounted () &#123;  </span><br><span class="line">      const comA &#x3D; this.$refs.comA;  </span><br><span class="line">      console.log(comA.name);  &#x2F;&#x2F; Vue.js  </span><br><span class="line">      comA.sayHello();  &#x2F;&#x2F; hello  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="五、eventBus"><a href="#五、eventBus" class="headerlink" title="五、eventBus"></a>五、eventBus</h2><p>eventBus 又称为事件总线，在vue中可以使用它来作为沟通桥梁的概念, 就像是所有组件共用相同的事件中心，可以向该中心注册发送事件或接收事件， 所以组件都可以通知其他组件。</p>
+<p>eventBus也有不方便之处, 当项目较大,就容易造成难以维护的灾难</p>
+<p>在Vue的项目中怎么使用eventBus来实现组件之间的数据通信呢?具体通过下面几个步骤</p>
+<h3 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h3><p>首先需要创建一个事件总线并将其导出, 以便其他模块可以使用或者监听它.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// event-bus.js  </span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> EventBus = <span class="keyword">new</span> Vue()</span><br></pre></td></tr></table></figure>
+<h3 id="2-发送事件"><a href="#2-发送事件" class="headerlink" title="2. 发送事件"></a>2. 发送事件</h3><p>假设你有两个组件: additionNum 和 showNum, 这两个组件可以是兄弟组件也可以是父子组件；这里我们以兄弟组件为例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &lt;show-num-com&gt;&lt;&#x2F;show-num-com&gt;  </span><br><span class="line">    &lt;addition-num-com&gt;&lt;&#x2F;addition-num-com&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">import showNumCom from &#39;.&#x2F;showNum.vue&#39;  </span><br><span class="line">import additionNumCom from &#39;.&#x2F;additionNum.vue&#39;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  components: &#123; showNumCom, additionNumCom &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; addtionNum.vue 中发送事件  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &lt;button @click&#x3D;&quot;additionHandle&quot;&gt;+加法器&lt;&#x2F;button&gt;      </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">import &#123;EventBus&#125; from &#39;.&#x2F;event-bus.js&#39;  </span><br><span class="line">console.log(EventBus)  </span><br><span class="line">export default &#123;  </span><br><span class="line">  data()&#123;  </span><br><span class="line">    return&#123;  </span><br><span class="line">      num:1  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;,  </span><br><span class="line">  methods:&#123;  </span><br><span class="line">    additionHandle()&#123;  </span><br><span class="line">      EventBus.$emit(&#39;addition&#39;, &#123;  </span><br><span class="line">        num:this.num++  </span><br><span class="line">      &#125;)  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="3-接收事件"><a href="#3-接收事件" class="headerlink" title="3. 接收事件"></a>3. 接收事件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; showNum.vue 中接收事件  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;计算和: &#123;&#123;count&#125;&#125;&lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">import &#123; EventBus &#125; from &#39;.&#x2F;event-bus.js&#39;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  data() &#123;  </span><br><span class="line">    return &#123;  </span><br><span class="line">      count: 0  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;,  </span><br><span class="line">  mounted() &#123;  </span><br><span class="line">    EventBus.$on(&#39;addition&#39;, param &#x3D;&gt; &#123;  </span><br><span class="line">      thisthis.count &#x3D; this.count + param.num;  </span><br><span class="line">    &#125;)  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>这样就实现了在组件addtionNum.vue中点击相加按钮, 在showNum.vue中利用传递来的 num 展示求和的结果.</p>
+<h3 id="4-移除事件监听者"><a href="#4-移除事件监听者" class="headerlink" title="4. 移除事件监听者"></a>4. 移除事件监听者</h3><p>如果想移除事件的监听, 可以像下面这样操作:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; eventBus &#125; <span class="keyword">from</span> <span class="string">'event-bus.js'</span>  </span><br><span class="line">EventBus.$off(<span class="string">'addition'</span>, &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="六、Vuex"><a href="#六、Vuex" class="headerlink" title="六、Vuex"></a>六、Vuex</h2><h3 id="1-Vuex介绍"><a href="#1-Vuex介绍" class="headerlink" title="1. Vuex介绍"></a>1. Vuex介绍</h3><p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化.</p>
+<p>Vuex 解决了多个视图依赖于同一状态和来自不同视图的行为需要变更同一状态的问题，将开发者的精力聚焦于数据的更新而不是数据在组件之间的传递上</p>
+<h3 id="2-Vuex各个模块"><a href="#2-Vuex各个模块" class="headerlink" title="2.Vuex各个模块"></a>2.Vuex各个模块</h3><p> state：用于数据的存储，是store中的唯一数据源<br> getters：如vue中的计算属性一样，基于state数据的二次包装，常用于数据的筛选和多个数据的相关性计算<br> mutations：类似函数，改变state数据的唯一途径，且不能用于处理异步事件<br> actions：类似于mutation，用于提交mutation来改变状态，而不直接变更状态，可以包含任意异步操作<br> modules：类似于命名空间，用于项目中将各个模块的状态分开定义和操作，便于维护</p>
+<h2 id="七、-localStorage-sessionStorage"><a href="#七、-localStorage-sessionStorage" class="headerlink" title="七、 localStorage / sessionStorage"></a>七、 localStorage / sessionStorage</h2><p>这种通信比较简单,缺点是数据和状态比较混乱,不太容易维护。</p>
+<p>通过window.localStorage.getItem(key) 获取数据</p>
+<p>通过window.localStorage.setItem(key,value) 存储数据</p>
+<p>注意用JSON.parse() / JSON.stringify() 做数据格式转换</p>
+<p>localStorage / sessionStorage可以结合vuex, 实现数据的持久保存,同时使用vuex解决数据和状态混乱问题.</p>
+<h2 id="八、-attrs与-listeners"><a href="#八、-attrs与-listeners" class="headerlink" title="八、 $attrs与 $listeners"></a>八、 $attrs与 $listeners</h2><p>现在我们来讨论一种情况， 我们一开始给出的组件关系图中A组件与D组件是隔代关系， 那它们之前进行通信有哪些方式呢？</p>
+<p> 1.使用props绑定来进行一级一级的信息传递, 如果D组件中状态改变需要传递数据给A, 使用事件系统一级级往上传递<br> 2.使用eventBus,这种情况下还是比较适合使用, 但是碰到多人合作开发时, 代码维护性较低, 可读性也低<br> 3.使用Vuex来进行数据管理, 但是如果仅仅是传递数据, 而不做中间处理,使用Vuex处理感觉有点大材小用了.<br>在vue2.4中，为了解决该需求，引入了$attrs 和$listeners ， 新增了inheritAttrs 选项。 在版本2.4以前，默认情况下,父作用域中不作为 prop 被识别 (且获取) 的特性绑定 (class 和 style 除外)，将会“回退”且作为普通的HTML特性应用在子组件的根元素上。接下来看一个跨级通信的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; app.vue  </span><br><span class="line">&#x2F;&#x2F; index.vue  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &lt;child-com1  </span><br><span class="line">      :name&#x3D;&quot;name&quot;  </span><br><span class="line">      :age&#x3D;&quot;age&quot;  </span><br><span class="line">      :gender&#x3D;&quot;gender&quot;  </span><br><span class="line">      :height&#x3D;&quot;height&quot;  </span><br><span class="line">      title&#x3D;&quot;程序员成长指北&quot;  </span><br><span class="line">    &gt;&lt;&#x2F;child-com1&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">const childCom1 &#x3D; () &#x3D;&gt; import(&quot;.&#x2F;childCom1.vue&quot;);  </span><br><span class="line">export default &#123;  </span><br><span class="line">  components: &#123; childCom1 &#125;,  </span><br><span class="line">  data() &#123;  </span><br><span class="line">    return &#123;  </span><br><span class="line">      name: &quot;zhang&quot;,  </span><br><span class="line">      age: &quot;18&quot;,  </span><br><span class="line">      gender: &quot;女&quot;,  </span><br><span class="line">      height: &quot;158&quot;  </span><br><span class="line">    &#125;;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; childCom1.vue  </span><br><span class="line">&lt;template class&#x3D;&quot;border&quot;&gt;  </span><br><span class="line">  &lt;div&gt;  </span><br><span class="line">    &lt;p&gt;name: &#123;&#123; name&#125;&#125;&lt;&#x2F;p&gt;  </span><br><span class="line">    &lt;p&gt;childCom1的$attrs: &#123;&#123; $attrs &#125;&#125;&lt;&#x2F;p&gt;  </span><br><span class="line">    &lt;child-com2 v-bind&#x3D;&quot;$attrs&quot;&gt;&lt;&#x2F;child-com2&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">const childCom2 &#x3D; () &#x3D;&gt; import(&quot;.&#x2F;childCom2.vue&quot;);  </span><br><span class="line">export default &#123;  </span><br><span class="line">  components: &#123;  </span><br><span class="line">    childCom2  </span><br><span class="line">  &#125;,  </span><br><span class="line">  inheritAttrs: false, &#x2F;&#x2F; 可以关闭自动挂载到组件根元素上的没有在props声明的属性  </span><br><span class="line">  props: &#123;  </span><br><span class="line">    name: String &#x2F;&#x2F; name作为props属性绑定  </span><br><span class="line">  &#125;,  </span><br><span class="line">  created() &#123;  </span><br><span class="line">    console.log(this.$attrs);  </span><br><span class="line">     &#x2F;&#x2F; &#123; &quot;age&quot;: &quot;18&quot;, &quot;gender&quot;: &quot;女&quot;, &quot;height&quot;: &quot;158&quot;, &quot;title&quot;: &quot;程序员成长指北&quot; &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; childCom2.vue  </span><br><span class="line">&lt;template&gt;  </span><br><span class="line">  &lt;div class&#x3D;&quot;border&quot;&gt;  </span><br><span class="line">    &lt;p&gt;age: &#123;&#123; age&#125;&#125;&lt;&#x2F;p&gt;  </span><br><span class="line">    &lt;p&gt;childCom2: &#123;&#123; $attrs &#125;&#125;&lt;&#x2F;p&gt;  </span><br><span class="line">  &lt;&#x2F;div&gt;  </span><br><span class="line">&lt;&#x2F;template&gt;  </span><br><span class="line">&lt;script&gt;  </span><br><span class="line">export default &#123;  </span><br><span class="line">  inheritAttrs: false,  </span><br><span class="line">  props: &#123;  </span><br><span class="line">    age: String  </span><br><span class="line">  &#125;,  </span><br><span class="line">  created() &#123;  </span><br><span class="line">    console.log(this.$attrs);   </span><br><span class="line">    &#x2F;&#x2F; &#123; &quot;gender&quot;: &quot;女&quot;, &quot;height&quot;: &quot;158&quot;, &quot;title&quot;: &quot;程序员成长指北&quot; &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>常见使用场景可以分为三类:</p>
+<ul>
+<li>父子组件通信: props; $parent / $children; provide / inject ; ref ; $attrs / $listeners</li>
+<li>兄弟组件通信: eventBus ; vuex</li>
+<li>跨级通信: eventBus；Vuex；provide / inject 、$attrs / $listeners</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="//www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Tian"
+        },
+        "headline": "Vue中8种组件通信方式",
+        "image": "http://yoursite.comhttps://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=184682414,3604033510&fm=26&gp=0.jpg",
+        "keywords": "vue",
+        "genre": "vue",
+        "datePublished": "2020-04-06",
+        "dateCreated": "2020-04-06",
+        "dateModified": "2020-07-20",
+        "url": "http://yoursite.com/2020/04/06/Vuecommunication/",
+        "description": "
+一、props / $emit父组件通过props的方式向子组件传递数据，而通过$emit 子组件可以向父组件通信。
+1. 父组件向子组件传值下面通过一个例子说明父组件如何向子组件传递数据：在子组件article.vue中如何获取父组件section.vue中的数据articles:[‘手机’, ‘平板’,’电脑’]
+123456789101112131415161718&#x2F;&#x2F;",
+        "wordCount": 2599
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="stack-overflow" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-stack-overflow"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/future613/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2020/04/18/optimization/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            前端性能优化
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2020/02/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">响应式布局</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/04/18/optimization/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1116313726,3874542020&fm=26&gp=0.jpg)" alt="前端性能优化" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></p>
+                            <p class="item-title"><a href="/2020/04/18/optimization/" class="title">前端性能优化</a></p>
+                            <p class="item-date"><time datetime="2020-04-18T12:03:15.000Z" itemprop="datePublished">2020-04-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/04/06/Vuecommunication/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=184682414,3604033510&fm=26&gp=0.jpg)" alt="Vue中8种组件通信方式" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/vue/">vue</a></p>
+                            <p class="item-title"><a href="/2020/04/06/Vuecommunication/" class="title">Vue中8种组件通信方式</a></p>
+                            <p class="item-date"><time datetime="2020-04-06T03:16:12.000Z" itemprop="datePublished">2020-04-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/05/hello-world/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2542054890,4291997804&fm=26&gp=0.jpg)" alt="响应式布局" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/%E6%A0%B7%E5%BC%8F%E7%BB%93%E6%9E%84%E5%92%8C%E5%B8%83%E5%B1%80/">样式结构和布局</a></p>
+                            <p class="item-title"><a href="/2020/02/05/hello-world/" class="title">响应式布局</a></p>
+                            <p class="item-date"><time datetime="2020-02-05T10:51:14.000Z" itemprop="datePublished">2020-02-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/01/06/text/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3252521864,872614242&fm=26&gp=0.jpg)" alt="算法总结（js）" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/js/">js</a></p>
+                            <p class="item-title"><a href="/2020/01/06/text/" class="title">算法总结（js）</a></p>
+                            <p class="item-date"><time datetime="2020-01-06T08:51:14.000Z" itemprop="datePublished">2020-01-06</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%B7%E5%BC%8F%E7%BB%93%E6%9E%84%E5%92%8C%E5%B8%83%E5%B1%80/">样式结构和布局</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E5%AE%83/" rel="tag">其它</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B7%E5%BC%8F%E7%BB%93%E6%9E%84%E5%92%8C%E5%B8%83%E5%B1%80/" rel="tag">样式结构和布局</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/%E5%85%B6%E5%AE%83/" style="font-size: 10px;">其它</a> <a href="/tags/%E6%A0%B7%E5%BC%8F%E7%BB%93%E6%9E%84%E5%92%8C%E5%B8%83%E5%B1%80/" style="font-size: 10px;">样式结构和布局</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 Tian</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2020/04/06/Vuecommunication/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>
